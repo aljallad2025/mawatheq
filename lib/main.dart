@@ -21,7 +21,7 @@ class MawatheqApp extends ConsumerWidget {
       debugShowCheckedModeBanner: false,
       locale: locale,
       supportedLocales: const [Locale('ar'), Locale('en')],
-      localizationsDelegates: const [
+      localizationsDelegates: [
         GlobalMaterialLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate,
         GlobalCupertinoLocalizations.delegate,
