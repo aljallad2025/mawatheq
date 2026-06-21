@@ -24,7 +24,7 @@ dependencies:
   # Localization (Arabic / English)
   flutter_localizations:
     sdk: flutter
-  intl: ^0.19.0
+  intl: ^0.20.2
 
   # Local storage (session token, language pref)
   shared_preferences: ^2.2.3
