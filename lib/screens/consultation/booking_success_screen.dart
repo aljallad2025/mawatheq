@@ -1,0 +1,71 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import '../../theme/app_colors.dart';
+import '../../theme/app_dimens.dart';
+import '../../utils/app_strings.dart';
+import '../../utils/locale_provider.dart';
+import '../../models/lawyer_model.dart';
+import '../home/main_navigation_screen.dart';
+
+class BookingSuccessScreen extends ConsumerWidget {
+  final LawyerModel lawyer;
+  const BookingSuccessScreen({super.key, required this.lawyer});
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final isArabic = ref.watch(localeProvider).languageCode == 'ar';
+    final textTheme = Theme.of(context).textTheme;
+
+    return Scaffold(
+      backgroundColor: AppColors.background,
+      body: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.all(AppDimens.pagePadding),
+          child: Column(
+            children: [
+              const Spacer(),
+              Container(
+                width: 110,
+                height: 110,
+                decoration: BoxDecoration(
+                  color: AppColors.success.withOpacity(0.1),
+                  shape: BoxShape.circle,
+                ),
+                child: const Icon(Icons.check_rounded, color: AppColors.success, size: 56),
+              ),
+              const SizedBox(height: AppDimens.xl),
+              Text(
+                AppStrings.t(isArabic, 'booking_success'),
+                textAlign: TextAlign.center,
+                style: textTheme.headlineMedium,
+              ),
+              const SizedBox(height: AppDimens.sm),
+              Text(
+                isArabic
+                    ? 'سيتم إشعارك عند بدء موعد الاستشارة مع ${lawyer.name}'
+                    : 'You will be notified when your consultation with ${lawyer.name} begins',
+                textAlign: TextAlign.center,
+                style: textTheme.bodyMedium?.copyWith(color: AppColors.textSecondary),
+              ),
+              const Spacer(),
+              SizedBox(
+                width: double.infinity,
+                height: AppDimens.buttonHeight,
+                child: ElevatedButton(
+                  onPressed: () {
+                    Navigator.of(context).pushAndRemoveUntil(
+                      MaterialPageRoute(builder: (_) => const MainNavigationScreen()),
+                      (route) => false,
+                    );
+                  },
+                  child: Text(AppStrings.t(isArabic, 'home')),
+                ),
+              ),
+              const SizedBox(height: AppDimens.lg),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
